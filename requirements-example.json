@@ -1,0 +1,13 @@
+[
+  {
+    "description": "This is an example of a requirement",
+    "done": false,
+    "steps": [
+      "This is the steps of the user story",
+      "For example, user opens the app",
+      "Then user clicks on a button",
+      "By the way that's it",
+      "Once everything here is done, the requirement is complete"
+    ]
+  }
+]

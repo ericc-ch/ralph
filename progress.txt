@@ -1,0 +1,10 @@
+## Initial
+
+Project initialized with Ralph workflow.
+
+- Created `requirements.json` - requirement definitions
+- Created `progress.txt` - progress tracking log
+
+Next: Begin working on first requirement.
+
+---

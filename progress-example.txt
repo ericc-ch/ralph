@@ -1,0 +1,12 @@
+## YYYY-MM-DD
+
+[Short description of the high-level feature or fix]
+
+- Created `path/to/new/file.ext` - describe the file's purpose or contents
+- Modified `path/to/existing/file.ext` to include [specific logic or UI changes]
+- Use backticks for `code_references`, `filenames`, or `variable_names`
+- Keep bullet points concise but technical (mention hooks, libraries, or refactors)
+
+Next: [Describe the immediate next task, file to create, or feature to implement]
+
+---
