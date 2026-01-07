@@ -17,7 +17,7 @@ if test (count $argv) -gt 0; and test $argv[1] = "init"
     # Create progress.txt if not exists
     if not test -f progress.txt
         echo "\
-## Initial
+## "(date '+%Y-%m-%dT%H:%M:%S')"
 
 Project initialized with Ralph workflow.
 
@@ -73,7 +73,7 @@ for i in (seq 1 $iterations)
     set result (opencode run --file plan.md --file progress.txt "\
 1. Find the highest-priority task to work on (not necessarily first in list).
 2. Work ONLY on that single task until complete.
-3. Run type checks, tests, and lint (if available) to ensure CI stays green.
+3. Run type checks, tests, and lint (if available).
 4. Update plan.md to check off completed items with [x].
 5. Append your progress to progress.txt (append only, don't overwrite previous entries).
 6. Make a git commit for that task.
