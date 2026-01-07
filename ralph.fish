@@ -66,6 +66,17 @@ if set -q _flag_once
     set iterations 1
 end
 
+# Check required files exist
+if not test -f plan.md
+    echo "Error: plan.md not found. Run 'ralph init' to create it."
+    exit 1
+end
+
+if not test -f progress.txt
+    echo "Error: progress.txt not found. Run 'ralph init' to create it."
+    exit 1
+end
+
 # Main loop
 for i in (seq 1 $iterations)
     echo "=== Ralph iteration $i of $iterations ==="
