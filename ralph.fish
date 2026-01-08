@@ -32,6 +32,22 @@ Next: Begin working on first task.
         echo "progress.txt already exists, skipping"
     end
 
+    # Create prompt.md if not exists
+    if not test -f prompt.md
+        echo "\
+1. Find the highest-priority task to work on (not necessarily first in list).
+2. Work ONLY on that single task until complete.
+3. Run type checks, tests, and lint (if available).
+4. Update plan.md to check off completed items with [x].
+5. Append your progress to progress.txt (append only, don't overwrite previous entries).
+6. Make a git commit for that task.
+ONLY WORK ON A SINGLE TASK.
+If plan.md is fully complete (all items checked), output <promise>COMPLETE</promise>." > prompt.md
+        echo "Created prompt.md"
+    else
+        echo "prompt.md already exists, skipping"
+    end
+
     exit 0
 end
 
@@ -49,7 +65,7 @@ if set -q _flag_help
     echo "Run AI coding agent in iterative loops to complete a plan."
     echo ""
     echo "Commands:"
-    echo "  init               Initialize plan.md and progress.txt in current directory"
+    echo "  init               Initialize plan.md, progress.txt, and prompt.md in current directory"
     echo ""
     echo "Options:"
     echo "  -i, --iteration N  Number of iterations to run (default: 10)"
@@ -77,19 +93,17 @@ if not test -f progress.txt
     exit 1
 end
 
+if not test -f prompt.md
+    echo "Error: prompt.md not found. Run 'ralph init' to create it."
+    exit 1
+end
+
 # Main loop
 for i in (seq 1 $iterations)
     echo "=== Ralph iteration $i of $iterations ==="
 
-    set result (opencode run --file plan.md --file progress.txt "\
-1. Find the highest-priority task to work on (not necessarily first in list).
-2. Work ONLY on that single task until complete.
-3. Run type checks, tests, and lint (if available).
-4. Update plan.md to check off completed items with [x].
-5. Append your progress to progress.txt (append only, don't overwrite previous entries).
-6. Make a git commit for that task.
-ONLY WORK ON A SINGLE TASK.
-If plan.md is fully complete (all items checked), output <promise>COMPLETE</promise>.")
+    set prompt (cat prompt.md)
+    set result (opencode run "$prompt")
 
     # Exit on failure
     or exit 1
