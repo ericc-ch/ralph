@@ -17,8 +17,6 @@ if test (count $argv) -gt 0; and test $argv[1] = "init"
     # Create progress.txt if not exists
     if not test -f progress.txt
         echo "\
-## "(date '+%Y-%m-%dT%H:%M:%S')"
-
 Project initialized with Ralph workflow.
 
 - Created `plan.md` - project plan and tasks
@@ -37,10 +35,11 @@ Next: Begin working on first task.
         echo "\
 1. Find the highest-priority task to work on (not necessarily first in list).
 2. Work ONLY on that single task until complete.
-3. Run type checks, tests, and lint (if available).
-4. Update plan.md to check off completed items with [x].
-5. Append your progress to progress.txt (append only, don't overwrite previous entries).
-6. Make a git commit for that task.
+3. After completing a task, reread the whole file and review.
+4. Run type checks, tests, and lint (if available).
+5. Update plan.md to check off completed items with [x].
+6. Append your progress to progress.txt (append only, don't overwrite previous entries).
+7. Make a git commit for that task.
 ONLY WORK ON A SINGLE TASK.
 If plan.md is fully complete (all items checked), output <promise>COMPLETE</promise>." > prompt.md
         echo "Created prompt.md"
