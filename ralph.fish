@@ -118,7 +118,7 @@ for i in (seq 1 $iterations)
     echo $result
 
     # Check for completion signal
-    if string match '*<promise>COMPLETE</promise>*' $result > /dev/null
+    if string match -q -- '*<promise>COMPLETE</promise>*' $result
         echo "Plan complete after $i iterations."
         exit 0
     end
