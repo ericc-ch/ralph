@@ -53,9 +53,10 @@ end
 
 # Defaults
 set iterations 10
+set delay 10
 
 # Parse arguments
-argparse 'h/help' 'i/iteration=' 'once' -- $argv
+argparse 'h/help' 'i/iteration=' 'd/delay=' 'once' -- $argv
 or exit 1
 
 if set -q _flag_help
@@ -70,7 +71,8 @@ if set -q _flag_help
     echo "Options:"
     echo "  -i, --iteration N  Number of iterations to run (default: 10)"
     echo "      --once         Run exactly 1 iteration (overrides -i)"
-    echo "  -h, --help         Show this help message"
+    echo "  -d, --delay N      Delay between iterations in seconds (default: 10)"
+    echo "      --help         Show this help message"
     exit 0
 end
 
@@ -80,6 +82,10 @@ end
 
 if set -q _flag_once
     set iterations 1
+end
+
+if set -q _flag_delay
+    set delay $_flag_delay
 end
 
 # Check required files exist
@@ -101,6 +107,7 @@ end
 # Main loop
 for i in (seq 1 $iterations)
     echo "=== Ralph iteration $i of $iterations ==="
+    echo "Started at "(date '+%Y-%m-%d %H:%M:%S')
 
     set prompt (cat prompt.md)
     set result (opencode run "$prompt")
@@ -111,9 +118,15 @@ for i in (seq 1 $iterations)
     echo $result
 
     # Check for completion signal
-    if string match -q '*<promise>COMPLETE</promise>*' $result
+    if string match '*<promise>COMPLETE</promise>*' $result > /dev/null
         echo "Plan complete after $i iterations."
         exit 0
+    end
+
+    # Delay between iterations (not after last)
+    if test $i -lt $iterations
+        echo "Waiting $delay seconds before next iteration..."
+        sleep $delay
     end
 end
 
