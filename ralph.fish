@@ -105,6 +105,7 @@ end
 
 # Main loop
 for i in (seq 1 $iterations)
+    echo ""
     echo "=== Ralph iteration $i of $iterations ==="
     echo "Started at "(date '+%Y-%m-%d %H:%M:%S')
 
