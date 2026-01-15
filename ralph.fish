@@ -126,6 +126,7 @@ for i in (seq 1 $iterations)
 
     # Delay between iterations (not after last)
     if test $i -lt $iterations
+        echo ""
         echo "Waiting $delay seconds before next iteration..."
         sleep $delay
     end
