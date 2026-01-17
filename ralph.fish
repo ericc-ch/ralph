@@ -70,8 +70,13 @@ Next: Begin working on first task.
 3. After completing a task, reread the whole file and review.
 4. Run type checks, tests, and lint (if available).
 5. Update plan.md to check off completed items with [x].
-6. Append your progress to progress.txt (append only, don't overwrite previous entries).
-7. Make a git commit for that task.
+6. Append to progress.txt:
+   - Tasks completed in this session
+   - Decisions made and why
+   - Blockers encountered
+   - Files changed
+7. Update AGENTS.md if fundamental changes were made to the codebase
+8. Make a git commit for that task.
 ONLY WORK ON A SINGLE TASK. YOU ARE DONE AFTER THAT SINGLE TASK IS COMPLETE.
 If plan.md is fully complete (all items checked), output <promise>COMPLETE</promise>." > prompt.md
         echo "Created prompt.md"
