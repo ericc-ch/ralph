@@ -5,40 +5,35 @@ if test (count $argv) -gt 0; and test $argv[1] = "init"
     # Create plan.md if not exists
     if not test -f plan.md
         echo "\
-# Project Name
+## Project Name
 
-## High Level Overview
-Brief description of what this project aims to accomplish.
+## 1. Problem & Motivation
+- **Context**: Why are we doing this?
+- User Pain Points
 
-## Tasks
+## 2. Success Criteria & End State
+- What does success look like?
+- Key User Stories / Workflows
 
-### Task 1: Task Title
-Brief description of what this task accomplishes.
+## 3. Scope, Constraints & Risks
+- In Scope / Out of Scope
+- Technical Constraints (Performance, Security, etc.)
+- Risks & Mitigation Strategies
 
-#### Subtasks
-- [ ] Subtask 1: Short description
-- [ ] Subtask 2: Short description
-- [ ] Subtask 3: Short description
+## 4. High Level Implementation Strategy
+- Architecture & Component Overview
+- Key Technical Decisions
+- Data Flow / System Diagrams (Mermaid if applicable)
 
-#### Implementation Guide
-Overview of the approach to complete this task.
+## 5. Implementation Roadmap (Milestones)
 
-- Step 1: High level first step
-- Step 2: Second step
-- Step 3: Third step
+### Phase 1: [Milestone Name]
+- **Goal**: [Brief description]
+- Key Deliverables:
+  - [ ] **[Feature / Component Name]**: [Brief but clear description of the requirement or functionality. What does this achieve?]
+  - [ ] **[Feature / Component Name]**: [Description...]
 
-Reference files:
-- \`src/file1.ts\` - description
-- \`src/file2.py\` - description
-
-#### Detailed Requirements
-Overview of the functional and non-functional requirements.
-
-- Requirement 1
-- Requirement 2
-- Requirement 3
-
-### Task 2: Task Title
+### Phase 2: [Milestone Name]
 ..." > plan.md
         echo "Created plan.md"
     else
@@ -87,6 +82,37 @@ If plan.md is fully complete (all items checked), output <promise>COMPLETE</prom
     exit 0
 end
 
+# Handle clear subcommand
+if test (count $argv) -gt 0; and test $argv[1] = "clear"
+    set files_deleted 0
+    
+    if test -f plan.md
+        rm plan.md
+        echo "Deleted plan.md"
+        set files_deleted (math $files_deleted + 1)
+    end
+    
+    if test -f progress.txt
+        rm progress.txt
+        echo "Deleted progress.txt"
+        set files_deleted (math $files_deleted + 1)
+    end
+    
+    if test -f prompt.md
+        rm prompt.md
+        echo "Deleted prompt.md"
+        set files_deleted (math $files_deleted + 1)
+    end
+    
+    if test $files_deleted -eq 0
+        echo "No ralph files to delete"
+    else
+        echo "Deleted $files_deleted file(s)"
+    end
+    
+    exit 0
+end
+
 # Defaults
 set iterations 10
 set delay 10
@@ -103,6 +129,7 @@ if set -q _flag_help
     echo ""
     echo "Commands:"
     echo "  init               Initialize plan.md, progress.txt, and prompt.md in current directory"
+    echo "  clear              Remove all ralph files (plan.md, progress.txt, prompt.md)"
     echo ""
     echo "Options:"
     echo "  -i, --iteration N  Number of iterations to run (default: 10)"
