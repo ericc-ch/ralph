@@ -113,8 +113,8 @@ if test (count $argv) -gt 0; and test $argv[1] = "clear"
     exit 0
 end
 
-# Defaults
-set iterations 10
+# Defaults (no -i flag = loop indefinitely with very high number)
+set iterations 999999
 set delay 10
 
 # Parse arguments
@@ -132,7 +132,7 @@ if set -q _flag_help
     echo "  clear              Remove all ralph files (plan.md, progress.txt, prompt.md)"
     echo ""
     echo "Options:"
-    echo "  -i, --iteration N  Number of iterations to run (default: 10)"
+    echo "  -i, --iteration N  Number of iterations to run (default: unlimited)"
     echo "      --once         Run exactly 1 iteration (overrides -i)"
     echo "  -d, --delay N      Delay between iterations in seconds (default: 10)"
     echo "      --help         Show this help message"
