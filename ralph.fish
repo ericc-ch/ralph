@@ -168,7 +168,8 @@ if not test -f prompt.md
 end
 
 # Main loop
-for i in (seq 1 $iterations)
+set i 1
+while test $i -le $iterations
     echo "=== Ralph iteration $i of $iterations ==="
     echo "Started at "(date '+%Y-%m-%d %H:%M:%S')
     echo ""
@@ -193,6 +194,8 @@ for i in (seq 1 $iterations)
         echo "Waiting $delay seconds before next iteration..."
         sleep $delay
     end
+
+    set i (math $i + 1)
 end
 
-echo "Completed $iterations iterations."
+echo "Completed $i iterations."
