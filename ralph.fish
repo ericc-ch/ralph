@@ -72,7 +72,10 @@ Next: Begin working on first task.
    - Files changed
 7. Update AGENTS.md if fundamental changes were made to the codebase
 8. Make a git commit for that task.
-ONLY WORK ON A SINGLE TASK. YOU ARE DONE AFTER THAT SINGLE TASK IS COMPLETE.
+
+Only work on a single task. After that single task is complete, end the session.
+Ending a session means no more tool calls. This is diffferent from completing plan.md.
+
 If plan.md is fully complete (all items checked), output <promise>COMPLETE</promise>." > prompt.md
         echo "Created prompt.md"
     else
@@ -85,31 +88,31 @@ end
 # Handle clear subcommand
 if test (count $argv) -gt 0; and test $argv[1] = "clear"
     set files_deleted 0
-    
+
     if test -f plan.md
         rm plan.md
         echo "Deleted plan.md"
         set files_deleted (math $files_deleted + 1)
     end
-    
+
     if test -f progress.txt
         rm progress.txt
         echo "Deleted progress.txt"
         set files_deleted (math $files_deleted + 1)
     end
-    
+
     if test -f prompt.md
         rm prompt.md
         echo "Deleted prompt.md"
         set files_deleted (math $files_deleted + 1)
     end
-    
+
     if test $files_deleted -eq 0
         echo "No ralph files to delete"
     else
         echo "Deleted $files_deleted file(s)"
     end
-    
+
     exit 0
 end
 
